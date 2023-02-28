@@ -3,7 +3,7 @@ import cowsay
 
 
 parser = argparse.ArgumentParser()
-parser.add_argument('message', nargs='?', default=None)
+parser.add_argument('message', nargs='?', default=None, type=str)
 parser.add_argument('-e', dest='eyes', default=cowsay.Option.eyes, type=str)
 parser.add_argument('-f', dest='cowfile', default=None, type=str)
 parser.add_argument('-l', dest='l', action='store_true')
