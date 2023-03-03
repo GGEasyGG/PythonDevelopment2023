@@ -32,24 +32,21 @@ def gameplay(ask, inform, words):
 
 
 def ask(prompt, valid=None):
-    cow = random.choice(cowsay.list_cows())
-    word = input(cowsay.cowsay(prompt, cow=cow) + '\n\n')
+    word = input(cowsay.cowsay(prompt, cowfile=mycow) + '\n\n')
     print()
 
     if valid is not None:
         while word not in valid:
-            cow = random.choice(cowsay.list_cows())
-            print(cowsay.cowsay('Введённого слова нет в словаре', cow=cow))
+            print(cowsay.cowsay('Введённого слова нет в словаре', cowfile=mycow))
             print()
-            word = input(cowsay.cowsay(prompt, cow=cow) + '\n\n')
+            word = input(cowsay.cowsay(prompt, cowfile=mycow) + '\n\n')
             print()
 
     return word
 
 
 def inform(format_string, bulls, cows):
-    cow = random.choice(cowsay.list_cows())
-    print(cowsay.cowsay(format_string.format(bulls, cows), cow=cow))
+    print(cowsay.cowsay(format_string.format(bulls, cows), cowfile=mycow))
     print()
 
 
@@ -59,7 +56,9 @@ if __name__ == '__main__':
     parser.add_argument('length', nargs='?', default=5, type=int)
     args = parser.parse_args()
 
-    cow = random.choice(cowsay.list_cows())
+    file = open('mycow.txt', 'r')
+    mycow = file.read()
+    file.close()
 
     if validators.url(args.dict):
         with req.urlopen(args.dict) as file:
@@ -73,9 +72,9 @@ if __name__ == '__main__':
             sys.exit()
 
     if not dictionary:
-        print(cowsay.cowsay('Запустите игру с меньшей длиной слова', cow=cow))
+        print(cowsay.cowsay('Запустите игру с меньшей длиной слова', cowfile=mycow))
         print()
         sys.exit()
 
-    print(cowsay.cowsay(f'Вы угадали слово за {gameplay(ask, inform, dictionary)} попыток', cow=cow))
+    print(cowsay.cowsay(f'Вы угадали слово за {gameplay(ask, inform, dictionary)} попыток', cowfile=mycow))
     print()
