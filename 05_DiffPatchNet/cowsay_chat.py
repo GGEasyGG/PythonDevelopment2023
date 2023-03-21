@@ -28,7 +28,6 @@ async def cowsay_chat(reader, writer):
 
             if q is send:
                 send = asyncio.create_task(reader.readline())
-
                 result = q.result().decode().strip().split(' ', maxsplit=1)
 
                 if len(result) == 1:
@@ -101,8 +100,7 @@ async def cowsay_chat(reader, writer):
                     if login:
                         if message is not None:
                             for out in clients.values():
-                                if out is not clients[me]:
-                                    await out.put(f'\n{str(datetime.datetime.now()).split(".")[0]} {me}:\n{cowsay.cowsay(message, cow=me)}\n')
+                            	await out.put(f'\n{str(datetime.datetime.now()).split(".")[0]} {me}:\n{cowsay.cowsay(message, cow=me)}\n')
                         else:
                             await client.put('\nError: The "yield" command has one argument\n')
                     else:
